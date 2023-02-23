@@ -11,9 +11,9 @@ def to_dataset_no_label(A, num_clusters, save_path, load_only=False, features=No
     if features is None:
         features = hermitian_feature(A, num_clusters)
 
-    data = Data(x=features, y=None,A=sp.csr_matrix(A))
+    data = Data(x=features, y=None, A=sp.csr_matrix(A))
     if not load_only:
-        if os.path.isdir(os.path.dirname(save_path)) == False:
+        if not os.path.isdir(os.path.dirname(save_path)):
             try:
                 os.makedirs(os.path.dirname(save_path))
             except FileExistsError:
@@ -21,13 +21,14 @@ def to_dataset_no_label(A, num_clusters, save_path, load_only=False, features=No
         pk.dump(data, open(save_path, 'wb'))
     return data
 
+
 def to_dataset_no_split(A, num_clusters, label, save_path, load_only=False, features=None):
     if features is None:
         features = hermitian_feature(A, num_clusters)
 
-    data = Data(x=features, y=label,A=sp.csr_matrix(A))
+    data = Data(x=features, y=label, A=sp.csr_matrix(A))
     if not load_only:
-        if os.path.isdir(os.path.dirname(save_path)) == False:
+        if not os.path.isdir(os.path.dirname(save_path)):
             try:
                 os.makedirs(os.path.dirname(save_path))
             except FileExistsError:

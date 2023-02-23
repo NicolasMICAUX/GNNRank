@@ -3,6 +3,7 @@ from torch.nn.parameter import Parameter
 from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.nn.inits import glorot, zeros
 
+
 class DiGCNConv(MessagePassing):
     r"""The graph convolutional operator from the
     `Digraph Inception Convolutional Networks" 
@@ -24,8 +25,9 @@ class DiGCNConv(MessagePassing):
         **kwargs (optional): Additional arguments of
             :class:`torch_geometric.nn.conv.MessagePassing`.
     """
-    def __init__(self, in_channels: int, out_channels: int, improved: bool=False, cached: bool=True,
-                 bias: bool=True, **kwargs):
+
+    def __init__(self, in_channels: int, out_channels: int, improved: bool = False, cached: bool = True,
+                 bias: bool = True, **kwargs):
         super(DiGCNConv, self).__init__(aggr='add', **kwargs)
 
         self.in_channels = in_channels
@@ -40,6 +42,9 @@ class DiGCNConv(MessagePassing):
         else:
             self.register_parameter('bias', None)
 
+        self.cached_num_edges = None
+        self.cached_result = None
+
         self.reset_parameters()
 
     def reset_parameters(self):
@@ -47,9 +52,9 @@ class DiGCNConv(MessagePassing):
         zeros(self.bias)
         self.cached_result = None
         self.cached_num_edges = None
-    
-    def forward(self, x: torch.FloatTensor, edge_index: torch.LongTensor, \
-        edge_weight: torch.FloatTensor=None) -> torch.FloatTensor:
+
+    def forward(self, x: torch.FloatTensor, edge_index: torch.LongTensor,
+                edge_weight: torch.FloatTensor = None) -> torch.FloatTensor:
         """
         Making a forward pass of the DiGCN Convolution layer from the
     `Digraph Inception Convolutional Networks" 

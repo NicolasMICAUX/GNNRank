@@ -10,6 +10,7 @@ import scipy.sparse
 import scipy.sparse.linalg
 import sparse
 
+
 def build_from_dense(A, alpha, l0, l1):
     """
     Given as input a 2d numpy array, build the matrices A and B to feed to the linear system solver for SpringRank.
@@ -18,8 +19,8 @@ def build_from_dense(A, alpha, l0, l1):
     k_in = np.sum(A, 0)
     k_out = np.sum(A, 1)
 
-    D1 = k_in + k_out           # to be seen as diagonal matrix, stored as 1d array
-    D2 = l1 * (k_out - k_in)    # to be seen as diagonal matrix, stored as 1d array
+    D1 = k_in + k_out  # to be seen as diagonal matrix, stored as 1d array
+    D2 = l1 * (k_out - k_in)  # to be seen as diagonal matrix, stored as 1d array
 
     if alpha != 0.:
         B = np.ones(n) * (alpha * l0) + D2
@@ -43,11 +44,11 @@ def build_from_sparse(A, alpha, l0, l1):
     SpringRank.
     """
     n = A.shape[0]
-    k_in = np.sum(A, 0).A1      # convert matrix of shape (1, n) into 1-dimensional array
-    k_out = np.sum(A, 1).A1     # same with (n, 1) matrix
+    k_in = np.sum(A, 0).A1  # convert matrix of shape (1, n) into 1-dimensional array
+    k_out = np.sum(A, 1).A1  # same with (n, 1) matrix
 
-    D1 = k_in + k_out           # to be seen as diagonal matrix, stored as 1d array
-    D2 = l1 * (k_out - k_in)    # to be seen as diagonal matrix, stored as 1d array
+    D1 = k_in + k_out  # to be seen as diagonal matrix, stored as 1d array
+    D2 = l1 * (k_out - k_in)  # to be seen as diagonal matrix, stored as 1d array
 
     if alpha != 0.:
         B = np.ones(n) * (alpha * l0) + D2
@@ -56,20 +57,18 @@ def build_from_sparse(A, alpha, l0, l1):
         A = A.tolil(copy=False)
         A.setdiag(alpha + D1 + A.diagonal())
     else:
-        last_row_plus_col = sparse.COO.from_scipy_sparse(A[n - 1, :] + A[:, n - 1].T)   # create sparse 1d COO array
+        last_row_plus_col = sparse.COO.from_scipy_sparse(A[n - 1, :] + A[:, n - 1].T)  # create sparse 1d COO array
         A = A + A.T
-        A += last_row_plus_col                                                          # broadcast on rows
-        A = -A.tocsr()                                                                  # reconvert to csr scipy matrix
+        A += last_row_plus_col  # broadcast on rows
+        A = -A.tocsr()  # reconvert to csr scipy matrix
 
         # Notice that a scipy.sparse.SparseEfficiencyWarning will be raised by calling A.setdiag().
         # However converting to lil matrix with
         # A.tolil(copy=False)
         # is not computationally convenient. Just suppress the warning during the call of A.setdiag(...)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", scipy.sparse.SparseEfficiencyWarning)
-            A.setdiag(A.diagonal() + D1)
+        A.setdiag(A.diagonal() + D1)
 
-        D3 = np.ones(n) * (l1 * (k_out[n-1] - k_in[n-1]))    # to be seen as diagonal matrix, stored as 1d array
+        D3 = np.ones(n) * (l1 * (k_out[n - 1] - k_in[n - 1]))  # to be seen as diagonal matrix, stored as 1d array
         B = D2 + D3
 
     return A, B
@@ -77,7 +76,8 @@ def build_from_sparse(A, alpha, l0, l1):
 
 def solve_linear_system(A, B, solver, verbose):
     if solver not in ['spsolve', 'bicgstab']:
-        warnings.warn('Unknown parameter {solver} for argument solver. Setting solver = "bicgstab"'.format(solver=solver))
+        warnings.warn(
+            'Unknown parameter {solver} for argument solver. Setting solver = "bicgstab"'.format(solver=solver))
         solver = 'bicgstab'
 
     if verbose:
@@ -89,7 +89,6 @@ def solve_linear_system(A, B, solver, verbose):
         sol = scipy.sparse.linalg.bicgstab(A, B)[0]
 
     return sol.reshape((-1,))
-
 
 
 def SpringRank(A, alpha=0., l0=1., l1=1., solver='bicgstab', verbose=False, force_dense=False):
@@ -139,5 +138,3 @@ def SpringRank(A, alpha=0., l0=1., l1=1., solver='bicgstab', verbose=False, forc
     rank = solve_linear_system(A, B, solver, verbose)
 
     return rank
-
-

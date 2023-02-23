@@ -14,6 +14,7 @@ class DiGCN_InceptionBlock(torch.nn.Module):
         in_dim (int): Dimention of input.
         out_dim (int): Dimention of output.
     """
+
     def __init__(self, in_dim, out_dim):
         super(DiGCN_InceptionBlock, self).__init__()
         self.ln = Linear(in_dim, out_dim)
@@ -26,9 +27,9 @@ class DiGCN_InceptionBlock(torch.nn.Module):
         self.conv1.reset_parameters()
         self.conv2.reset_parameters()
 
-    def forward(self, x: torch.FloatTensor, edge_index: torch.LongTensor, \
-        edge_weight: torch.FloatTensor, edge_index2: torch.LongTensor, \
-        edge_weight2: torch.FloatTensor) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
+    def forward(self, x: torch.FloatTensor, edge_index: torch.LongTensor,
+                edge_weight: torch.FloatTensor, edge_index2: torch.LongTensor,
+                edge_weight2: torch.FloatTensor) -> Tuple[torch.FloatTensor, torch.FloatTensor, torch.FloatTensor]:
         """
         Making a forward pass of the DiGCN inception block model from the
     `Digraph Inception Convolutional Networks" 
