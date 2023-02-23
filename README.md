@@ -1,26 +1,4 @@
-# GNNRank
-
-This is the official code repo for the ICML 2022 paper -- [GNNRank: Learning Global Rankings from Pairwise Comparisons via Directed Graph Neural Networks](https://arxiv.org/pdf/2202.00211.pdf). A recorded video for the live talk at ICML 2022 is provided [via this link](https://slideslive.com/38984112/gnnrank-learning-global-rankings-from-pairwise-comparisons-via-directed-graph-neural-networks). You are also welcome to read our [poster](https://github.com/SherylHYX/GNNRank/blob/main/ICML2022_GNNRank_poster.pdf).
-
---------------------------------------------------------------------------------
-
-**Citing**
-
-
-If you find our repo or paper useful in your research, please consider adding the following citation:
-
-```bibtex
-@inproceedings{he2022gnnrank,
-  title={GNNRank: Learning Global Rankings from Pairwise Comparisons via Directed Graph Neural Networks},
-  author={He, Yixuan and Gan, Quan and Wipf, David and Reinert, Gesine D and Yan, Junchi and Cucuringu, Mihai},
-  booktitle={International Conference on Machine Learning},
-  pages={8581--8612},
-  year={2022},
-  organization={PMLR}
-}
-```
-
---------------------------------------------------------------------------------
+# GNNRank on custom datasets
 
 ## Environment Setup
 ### Overview
@@ -32,27 +10,6 @@ The project has been tested on the following environment specification:
 4. CUDA 11.0 (and CUDA 9.2)
 5. Pytorch 1.10.1 (built against CUDA 11.0) and Pytorch 1.8.0 (build against CUDA 10.2)
 6. Other libraries and python packages (See below)
-
-### Installation method 1 (.yml files)
-You should handle (1),(2) yourself. For (3), (4), (5) and (6), we provide a list of steps to install them.
-
-<!-- We place those python packages that can be easily installed with one-line command in the requirement file for `pip` (`requirements_pip.txt`). For all other python packages, which are not so well maintained by [PyPI](https://pypi.org/), and all C/C++ libraries, we place in the conda requirement file (`requirements_conda.txt`). Therefore, you need to run both conda and pip to get necessary dependencies. -->
-
-We provide two examples of envionmental setup, one with CUDA 11.0 and GPU, the other with CPU.
-
-Following steps assume you've done with (1) and (2).
-1. Install [conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html). Both Miniconda and Anaconda are OK.
-
-2. Create an environment and install python packages (GPU):
-```
-conda env create -f environment_GPU.yml
-```
-
-3. Create an environment and install python packages (CPU):
-```
-conda env create -f environment_CPU.yml
-```
-
 
 ### Installation method 2 (manual installation)
 The codebase is implemented in Python 3.6.12. package versions used for development are below.
@@ -180,3 +137,15 @@ python ./train.py --dataset HeadToHead --no-cuda --num_trials 5 --hidden 8
 
 ## Notes
 - For certain applications such as financial data sets, the original adjacency matrices might be skew-symmetric with negative edge weights. For our models here, however, we need to preprocess the data so that we only keep the positive edge weights, as our current pipeline, including the loss functions, are restricted to directed unsigned networks as inputs.
+
+# Credits
+```bibtex
+@inproceedings{he2022gnnrank,
+  title={GNNRank: Learning Global Rankings from Pairwise Comparisons via Directed Graph Neural Networks},
+  author={He, Yixuan and Gan, Quan and Wipf, David and Reinert, Gesine D and Yan, Junchi and Cucuringu, Mihai},
+  booktitle={International Conference on Machine Learning},
+  pages={8581--8612},
+  year={2022},
+  organization={PMLR}
+}
+```
