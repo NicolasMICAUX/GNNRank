@@ -105,18 +105,8 @@ def parameter_parser():
         args.train_ratio = 1
         args.test_ratio = 1
         args.seeds = [10]
-    
-    if args.dataset[:3] == 'ERO':
-        args.K = 5 # random
-        args.F = 3 # random
-        default_name_base = 'p' + str(int(100*args.p)) + 'K' + str(args.K) + 'N' + str(args.N)
-        default_name_base += 'eta' + str(int(100*args.eta)) + 'style' + str(args.ERO_style)
-        args.dataset = 'ERO/' + default_name_base
-    elif args.dataset[:10].lower() == 'basketball':
-        args.F = 70
-        args.K = 20
-        args.dataset = 'Basketball_temporal/' + str(args.season)
-    elif args.dataset[:16].lower() == 'finer_basketball':
+
+    if args.dataset[:16].lower() == 'finer_basketball':
         args.F = 2
         args.K = 20
         args.dataset = 'Basketball_temporal/finer' + str(args.season)
@@ -124,9 +114,6 @@ def parameter_parser():
         args.F = 3
         args.K = 3
         args.dataset = 'Dryad_animal_society/'
-    elif args.dataset[:7].lower() == 'finance':
-        args.F = 5 # threshold: > 0.7, others have threshold > 0.9
-        args.K = 20
     elif args.dataset[:10].lower() == 'headtohead':
         args.F = 39
         args.K = 48

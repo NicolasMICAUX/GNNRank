@@ -88,26 +88,6 @@ GNNRank provides various command line arguments, which can be viewed in the ./sr
   --all_methods           LST         Methods to use to generate results.                       Default is ['btl','DIGRAC'].
 ```
 
-
-## Reproduce results
-First, get into the ./execution/ folder:
-```
-cd execution
-```
-To reproduce basketball results executed on CUDA 1.
-```
-bash basketball1.sh
-```
-To reproduce results on synthetic data.
-```
-bash 0ERO.sh
-```
-Other execution files are similar to run.
-
-Note that if you are operating on CPU, you may delete the commands ``CUDA_VISIBLE_DEVICES=xx". You can also set you own number of parallel jobs, not necessarily following the j numbers in the .sh files.
-
-You can also use CPU for training if you add ``--no-duca", or GPU if you delete this.
-
 ## Direct execution with training files
 
 First, get into the ./src/ folder:
