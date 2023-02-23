@@ -14,6 +14,4 @@ python ./train.py -D --dataset faculty_history --all_methods PageRank
 
 python ./train.py -D --dataset HeadToHead --all_methods rankCentrality
 
-python ./train.py -D --dataset finance --all_methods btl
-
 python ./train.py -D --dataset finer_football --all_methods mvr
