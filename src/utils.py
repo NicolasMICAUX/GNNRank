@@ -109,6 +109,8 @@ def hermitian_feature(A, num_clusters):
 
 
 def scipy_sparse_to_torch_sparse(A):
+    # todo : Creating a tensor from a list of numpy.ndarrays is extremely slow.
+    #  Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor.
     A = sp.csr_matrix(A)
     return torch.sparse_coo_tensor(torch.LongTensor(A.nonzero()), torch.FloatTensor(A.data), A.shape)
 

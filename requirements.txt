@@ -11,4 +11,5 @@ torch
 torch-scatter
 sparse
 torch-geometric
+torch-sparse
 # stellargraph  # NOT IN PYTHON3.10

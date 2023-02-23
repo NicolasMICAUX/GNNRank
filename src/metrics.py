@@ -29,7 +29,7 @@ def print_performance_mean_std(dataset:str, results:np.array, compare_names_all:
     std = np.chararray(
         [len(metric_names), len(compare_names_all)], itemsize=20)
     results_std = np.transpose(np.round(np.nanstd(results,0),2))
-    results_mean = np.transpose(np.round(np.nanmean(results,0),2))
+    results_mean = np.transpose(np.round(np.nanmean(results,0),2))  # todo: RuntimeWarning: Mean of empty slice
     for i in range(results_mean.shape[0]):
         for j in range(results_mean.shape[1]):
             final_res_show[1+i, 1+j] = '{:.2f}'.format(results_mean[i, j])

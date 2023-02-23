@@ -80,7 +80,7 @@ def syncRank_angle(A):
     H[T!=0] = np.exp(1j*T[T!=0])
 
     # 4. Form Dinv
-    Dinv = sp.diags(1./np.array((np.abs(H)).sum(axis=0)).reshape(-1))
+    Dinv = sp.diags(1./np.array((np.abs(H)).sum(axis=0)).reshape(-1))  # todo :  RuntimeWarning: divide by zero encountered in divide
 
     # 5. Form fancyH
     fancyH = Dinv.dot(H)
