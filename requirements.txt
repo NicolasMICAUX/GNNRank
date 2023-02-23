@@ -1,0 +1,14 @@
+networkx
+tqdm
+numpy
+pandas
+texttable
+latextable
+scipy
+argparse
+scikit-learn
+torch
+torch-scatter
+sparse
+# pyg  # PROJECT IS DEAD
+# stellargraph  # NOT IN PYTHON3.10
