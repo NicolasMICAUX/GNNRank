@@ -24,6 +24,7 @@ def load_data_from_memory(root):
 
 
 def load_real_data(dataset):
+    """Load a real-world (not synthetic) dataset."""
     A = sp.load_npz(os.path.join(os.path.dirname(os.path.realpath(
         __file__)), '../data/' + dataset + 'adj.npz'))
     return A

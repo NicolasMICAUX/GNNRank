@@ -17,7 +17,6 @@ from get_adj import get_second_directed_adj
 from metrics import print_performance_mean_std, calculate_upsets
 from param_parser import parameter_parser
 from preprocess import load_data
-
 from utils import write_log, scipy_sparse_to_torch_sparse, get_powers_sparse
 
 GNN_variant_names = ['dist', 'innerproduct', 'proximal_dist', 'proximal_innerproduct', 'proximal_baseline']
@@ -36,6 +35,7 @@ for method_name in args.all_methods:
     if method_name not in ['DIGRAC', 'ib']:
         compare_names_all.append(method_name)
     else:
+        # all the variants of GNNRank, with `method_name` as the embedding GNN model
         for GNN_type in GNN_variant_names:
             compare_names_all.append(method_name + '_' + GNN_type)
 
@@ -257,16 +257,16 @@ class Trainer(object):
                         train_index[:] = True
                         val_index[:] = True
                         test_index[:] = True
-                    train_A = scipy_sparse_to_torch_sparse(self.A[train_index][:, train_index]).to(self.args.device)
-                    val_A = scipy_sparse_to_torch_sparse(self.A[val_index][:, val_index]).to(self.args.device)
-                    test_A = scipy_sparse_to_torch_sparse(self.A[test_index][:, test_index]).to(self.args.device)
+                    # train_A = scipy_sparse_to_torch_sparse(self.A[train_index][:, train_index]).to(self.args.device)
+                    # val_A = scipy_sparse_to_torch_sparse(self.A[val_index][:, val_index]).to(self.args.device)
+                    # test_A = scipy_sparse_to_torch_sparse(self.A[test_index][:, test_index]).to(self.args.device)
                 else:
                     train_index = np.ones(args.N, dtype=bool)
                     val_index = train_index
                     test_index = train_index
                     train_A = scipy_sparse_to_torch_sparse(self.A).to(self.args.device)
-                    val_A = train_A
-                    test_A = train_A
+                    # val_A = train_A
+                    # test_A = train_A
                 #################################
                 # Train/Validation/Test
                 #################################
@@ -563,7 +563,7 @@ class Trainer(object):
         kendalltau_full[:] = np.nan
         upset_full = np.zeros([self.splits, NUM_UPSET_CHOICES])
         upset_full[:] = np.nan
-        A = scipy_sparse_to_torch_sparse(self.A).to(self.args.device)
+        # A = scipy_sparse_to_torch_sparse(self.A).to(self.args.device)
 
         for split in range(self.splits):
             if self.test_mask is not None:
@@ -698,6 +698,7 @@ method_str = ''
 for method_name in args.all_methods:
     method_str += method_name
 
+# add some parameters to the name, depending on the method, dataset etc.
 default_name_base = ''
 if 'DIGRAC' in args.all_methods or 'ib' in args.all_methods:
     default_name_base += 'K' + str(args.K) + 'dropout' + str(int(100 * args.dropout))
@@ -726,7 +727,7 @@ save_name = default_name_base
 current_seed_ind = 0
 for random_seed in args.seeds:
     current_ind = 0
-    trainer = Trainer(args, random_seed, save_name_base)
+    trainer = Trainer(args, random_seed, save_name_base)  # todo: 1 Go memory
     for method_name in args.all_methods:
         kendalltau_full, kendalltau_full_latest, upset_full, upset_full_latest = trainer.train(method_name)
         if method_name not in ['DIGRAC', 'ib']:

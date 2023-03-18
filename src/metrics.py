@@ -322,9 +322,9 @@ def calculate_upsets(A: torch.FloatTensor,
         """
     # for numerical stability
     epsilon = torch.FloatTensor([1e-8]).to(score)
-    M = A - torch.transpose(A, 0, 1)
+    M = A - torch.transpose(A, 0, 1)  # todo : huge memory cost
     indices = (M != 0)
-    T1 = score - score.T
+    T1 = score - score.T  # todo : huge memory cost
     if style == 'simple':
         upset = torch.mean(torch.pow(torch.sign(T1[indices]) - torch.sign(M[indices]), 2))
     elif style == 'margin':
