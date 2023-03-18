@@ -19,6 +19,7 @@ from param_parser import parameter_parser
 from preprocess import load_data
 from utils import write_log, scipy_sparse_to_torch_sparse, get_powers_sparse
 
+
 GNN_variant_names = ['dist', 'innerproduct', 'proximal_dist', 'proximal_innerproduct', 'proximal_baseline']
 NUM_GNN_VARIANTS = len(GNN_variant_names)  # number of GNN variants for each architecture
 
@@ -412,7 +413,7 @@ class Trainer(object):
                 base_save_path = self.log_path + '/' + model_name
                 logstr = ''
                 model.load_state_dict(torch.load(
-                    self.log_path + '/' + model_name + '_model' + str(split) + '.t7'))
+                    self.log_path + '/' + model_name + '_model_latest' + str(split) + '.t7'))
                 model.eval()
 
                 if model_name == 'DIGRAC':
