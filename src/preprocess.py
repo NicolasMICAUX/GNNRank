@@ -38,9 +38,9 @@ def load_real_data(dataset: str) -> Tuple[sp.csr_matrix, ndarray, ndarray]:
     x, y = None, None
     A = sp.load_npz(os.path.join(os.path.dirname(os.path.realpath(
         __file__)), '../data/' + dataset + 'adj.npz'))
-    if os.path.isfile(x_path := os.path.join(os.path.dirname(os.path.realpath(
-        __file__)), '../data/' + dataset + 'x.npy')):
-        x = np.load(x_path)
+    # if os.path.isfile(x_path := os.path.join(os.path.dirname(os.path.realpath(
+    #     __file__)), '../data/' + dataset + 'x.npy')):
+    #     x = np.load(x_path)
     if os.path.isfile(y_path := os.path.join(os.path.dirname(os.path.realpath(
         __file__)), '../data/' + dataset + 'y.npy')):
         y = np.load(y_path)
