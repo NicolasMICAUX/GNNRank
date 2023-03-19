@@ -64,8 +64,8 @@ def load_data(args, random_seed):
     else:
         print('Generating new data or new data splits!')
         if args.dataset[:3] == 'ERO':
-            A, label = ERO(n=args.N, p=args.p, eta=args.eta, style=args.ERO_style)
-            A, label = extract_network(A, label)
+            A, label = ERO(n=args.N, p=args.p, eta=args.eta, style=args.ERO_style)  # label=1D array of size nb_nodes
+            A, label = extract_network(A, label)  # A and label sizes unchanged
             data = to_dataset_no_split(A, args.K, torch.LongTensor(label), save_path=save_path,
                                        load_only=args.load_only)
         else:
