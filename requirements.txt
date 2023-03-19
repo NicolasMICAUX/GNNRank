@@ -9,6 +9,3 @@ argparse
 scikit-learn
 torch
 sparse
-torch-scatter -f https://pytorch-geometric.com/whl/torch-1.13.1+cu116.html --no-index
-torch-geometric -f https://pytorch-geometric.com/whl/torch-1.13.1+cu116.html --no-index
-torch-sparse -f https://pytorch-geometric.com/whl/torch-1.13.1+cu116.html --no-index
