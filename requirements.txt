@@ -12,6 +12,4 @@ torch-scatter
 sparse
 torch-geometric
 torch-sparse
-youtube-dl
-pandarallel
 # stellargraph  # NOT IN PYTHON3.10
