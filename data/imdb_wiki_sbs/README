@@ -1,0 +1,6 @@
+This file describes the data set IMDB-WIKI-SbS available at https://toloka.ai/datasets.
+
+The data set is intended for non-commercial use. You must indicate that the data was obtained using Toloka. If you plan to use the datasets for commercial purposes, obtain consent from Toloka by contacting: toloka@support.yandex.com. 
+
+
+A sample of 2,497 images from the IMDB-WIKI dataset (https://data.vision.ee.ethz.ch/cvl/rrothe/imdb-wiki/) annotated on Toloka. This dataset contains images of people with reliable ground-truth age assigned to every image. The annotation allowed us to obtain 84,543 comparisons by 2,085 workers.

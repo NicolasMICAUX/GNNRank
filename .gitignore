@@ -137,4 +137,11 @@ debug_logs/
 
 # debug files
 result_arrays/debug/
-/data/
+# all csv or npz files in data/ and all its subdirectories
+/data/**/*.csv
+/data/**/*.feather
+/data/**/*.pk
+/data/**/*.npz
+
+# profiling files
+/**/*.pclprof
