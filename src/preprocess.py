@@ -1,15 +1,17 @@
 import os
 import pickle as pk
 import random
-from typing import List
+from typing import List, Tuple
 
+import numpy as np
 import numpy.random as rnd
 import scipy.sparse as sp
 
 import torch
+from numpy import ndarray
 
 from extract_network import extract_network
-from generate_data import to_dataset_no_label, to_dataset_no_split
+from generate_data import to_dataset_no_split
 
 from utils import ERO
 
@@ -28,15 +30,22 @@ def load_data_from_memory(root) -> List:
     return [data]
 
 
-def load_real_data(dataset):
+def load_real_data(dataset: str) -> Tuple[sp.csr_matrix, ndarray, ndarray]:
     """Load a real-world (not synthetic) dataset.
     This dataset is an adjacency matrix, stored in a npz file.
     :param dataset: The name of the dataset.
-    :return: The adjacency matrix.
+    :return: The adjacency matrix, the node features, and the labels.
     """
+    x, y = None, None
     A = sp.load_npz(os.path.join(os.path.dirname(os.path.realpath(
         __file__)), '../data/' + dataset + 'adj.npz'))
-    return A
+    if os.path.isfile(x_path := os.path.join(os.path.dirname(os.path.realpath(
+        __file__)), '../data/' + dataset + 'x.npy')):
+        x = np.load(x_path)
+    if os.path.isfile(y_path := os.path.join(os.path.dirname(os.path.realpath(
+        __file__)), '../data/' + dataset + 'y.npy')):
+        y = np.load(y_path)
+    return A, x, y
 
 
 def load_data(args, random_seed):
@@ -69,9 +78,9 @@ def load_data(args, random_seed):
             data = to_dataset_no_split(A, args.K, torch.LongTensor(label), save_path=save_path,
                                        load_only=args.load_only)
         else:
-            A = load_real_data(args.dataset)
-            data = to_dataset_no_label(A, args.K, save_path=save_path,
-                                       load_only=args.load_only)
+            A, features, label = load_real_data(args.dataset)
+            data = to_dataset_no_split(A, args.K, label, save_path=save_path,
+                                       load_only=args.load_only, features=features)
 
     if data.y is not None:
         label = data.y.data.numpy().astype('int')

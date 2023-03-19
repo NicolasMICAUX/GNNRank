@@ -7,32 +7,6 @@ from torch_geometric.data import Data
 from utils import hermitian_feature
 
 
-# todo : what is the interest of having those 2 very similmar functions?
-
-def to_dataset_no_label(A, num_clusters, save_path, load_only=False, features=None):
-    """
-    Convert a graph (adjacency matrix + features) to a torch_geometric.data.Data object.
-    :param A: adjacency matrix
-    :param num_clusters:
-    :param save_path:
-    :param load_only:
-    :param features:
-    :return:
-    """
-    if features is None:
-        features = hermitian_feature(A, num_clusters)
-
-    data = Data(x=features, y=None, A=sp.csr_matrix(A))
-    if not load_only:
-        if not os.path.isdir(os.path.dirname(save_path)):
-            try:
-                os.makedirs(os.path.dirname(save_path))
-            except FileExistsError:
-                print('Folder exists for best {}!'.format(os.path.dirname(save_path)))
-        pk.dump(data, open(save_path, 'wb'))
-    return data
-
-
 def to_dataset_no_split(A, num_clusters, label, save_path, load_only=False, features=None) -> Data:
     """
     Convert a graph (adjacency matrix + features) to a torch_geometric.data.Data object.
