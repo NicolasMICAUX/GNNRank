@@ -9,3 +9,4 @@ argparse
 scikit-learn
 torch
 sparse
+torch-geometric
