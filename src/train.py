@@ -165,7 +165,7 @@ class Trainer(object):
             upset_full_latest = upset_full.copy()
 
             args = self.args
-            A = scipy_sparse_to_torch_sparse(self.A).to(self.args.device)
+            # A = scipy_sparse_to_torch_sparse(self.A).to(self.args.device)
             if model_name == 'DIGRAC':
                 norm_A = get_powers_sparse(self.A, hop=1, tau=self.args.tau)[
                     1].to(self.args.device)
