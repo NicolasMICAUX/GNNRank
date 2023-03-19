@@ -41,7 +41,7 @@ for method_name in args.all_methods:
             compare_names_all.append(method_name + '_' + GNN_type)
 
 
-def evalutaion(logstr, score, A_torch, label_np, val_index, test_index, SavePred, save_path, split, identifier_str):
+def evaluation(logstr, score, A_torch, label_np, val_index, test_index, SavePred, save_path, split, identifier_str):
     kendalltau_full = np.zeros((3, 2))
     kendalltau_full[:] = np.nan
     if score.min().detach().item() < 0:
@@ -456,19 +456,19 @@ class Trainer(object):
                     val_loss.detach().item(), test_loss.detach().item(), all_loss.detach().item())
 
                 score = model.obtain_score_from_dist()
-                logstr, upset_full[0, split], kendalltau_full[0, split] = evalutaion(logstr, score, self.A_torch,
+                logstr, upset_full[0, split], kendalltau_full[0, split] = evaluation(logstr, score, self.A_torch,
                                                                                      self.label_np, val_index,
                                                                                      test_index, self.args.SavePred, \
                                                                                      base_save_path, split, 'dist')
                 score = model.obtain_score_from_innerproduct()
-                logstr, upset_full[1, split], kendalltau_full[1, split] = evalutaion(logstr, score, self.A_torch,
+                logstr, upset_full[1, split], kendalltau_full[1, split] = evaluation(logstr, score, self.A_torch,
                                                                                      self.label_np, val_index,
                                                                                      test_index, self.args.SavePred, \
                                                                                      base_save_path, split,
                                                                                      'innerproduct')
                 for ind, start_from in enumerate(['dist', 'innerproduct', 'baseline']):
                     score = model.obtain_score_from_proximal(start_from)
-                    logstr, upset_full[2 + ind, split], kendalltau_full[2 + ind, split] = evalutaion(logstr, score,
+                    logstr, upset_full[2 + ind, split], kendalltau_full[2 + ind, split] = evaluation(logstr, score,
                                                                                                      self.A_torch,
                                                                                                      self.label_np,
                                                                                                      val_index,
@@ -522,7 +522,7 @@ class Trainer(object):
                     val_loss.detach().item(), test_loss.detach().item(), all_loss.detach().item())
 
                 score = model.obtain_score_from_dist()
-                logstr, upset_full_latest[0, split], kendalltau_full_latest[0, split] = evalutaion(logstr, score,
+                logstr, upset_full_latest[0, split], kendalltau_full_latest[0, split] = evaluation(logstr, score,
                                                                                                    self.A_torch,
                                                                                                    self.label_np,
                                                                                                    val_index,
@@ -531,7 +531,7 @@ class Trainer(object):
                                                                                                    base_save_path,
                                                                                                    split, 'dist_latest')
                 score = model.obtain_score_from_innerproduct()
-                logstr, upset_full_latest[1, split], kendalltau_full_latest[1, split] = evalutaion(logstr, score,
+                logstr, upset_full_latest[1, split], kendalltau_full_latest[1, split] = evaluation(logstr, score,
                                                                                                    self.A_torch,
                                                                                                    self.label_np,
                                                                                                    val_index,
@@ -542,7 +542,7 @@ class Trainer(object):
                                                                                                    'innerproduct_latest')
                 for ind, start_from in enumerate(['dist', 'innerproduct', 'baseline']):
                     score = model.obtain_score_from_proximal(start_from)
-                    logstr, upset_full_latest[2 + ind, split], kendalltau_full_latest[2 + ind, split] = evalutaion(
+                    logstr, upset_full_latest[2 + ind, split], kendalltau_full_latest[2 + ind, split] = evaluation(
                         logstr, score, self.A_torch, self.label_np, val_index, test_index, self.args.SavePred, \
                         base_save_path, split, 'proximal_' + start_from + '_latest')
 

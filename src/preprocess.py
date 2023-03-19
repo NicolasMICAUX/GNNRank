@@ -1,6 +1,7 @@
 import os
 import pickle as pk
 import random
+from typing import List
 
 import numpy.random as rnd
 import scipy.sparse as sp
@@ -13,7 +14,11 @@ from generate_data import to_dataset_no_label, to_dataset_no_split
 from utils import ERO
 
 
-def load_data_from_memory(root):
+def load_data_from_memory(root) -> List:
+    """If a dataset as already been packaged as a pickle file, load it from memory.
+    :param root: The path to the pickle file.
+    :return: The data object.
+    """
     data = pk.load(open(root, 'rb'))
     if not os.path.isdir(root):
         try:
@@ -24,13 +29,23 @@ def load_data_from_memory(root):
 
 
 def load_real_data(dataset):
-    """Load a real-world (not synthetic) dataset."""
+    """Load a real-world (not synthetic) dataset.
+    This dataset is an adjacency matrix, stored in a npz file.
+    :param dataset: The name of the dataset.
+    :return: The adjacency matrix.
+    """
     A = sp.load_npz(os.path.join(os.path.dirname(os.path.realpath(
         __file__)), '../data/' + dataset + 'adj.npz'))
     return A
 
 
 def load_data(args, random_seed):
+    """
+    Load data for training, be it synthetic or real-world data.
+    :param args: all arguments describing the dataset to load or generate.
+    :param random_seed: the random seed to use for data generation.
+    :return: labels, train_mask, val_mask, test_mask, node features, Adjacency matrix
+    """
     rnd.seed(random_seed)
     random.seed(random_seed)
     label = None
