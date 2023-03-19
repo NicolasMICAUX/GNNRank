@@ -8,8 +8,7 @@ scipy
 argparse
 scikit-learn
 torch
-torch-scatter
 sparse
-torch-geometric
-torch-sparse
-# stellargraph  # NOT IN PYTHON3.10
+torch-scatter -f https://pytorch-geometric.com/whl/torch-1.13.1+cu116.html
+torch-geometric -f https://pytorch-geometric.com/whl/torch-1.13.1+cu116.html
+torch-sparse -f https://pytorch-geometric.com/whl/torch-1.13.1+cu116.html
