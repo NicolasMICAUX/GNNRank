@@ -29,7 +29,7 @@ def load_data_from_memory(root) -> List:
     return [data]
 
 
-def load_real_data(dataset: str) -> Tuple[sp.csr_matrix, ndarray, ndarray]:
+def load_real_data(dataset: str) -> Tuple:
     """Load a real-world (not synthetic) dataset.
     This dataset is an adjacency matrix, stored in a npz file.
     :param dataset: The name of the dataset.
