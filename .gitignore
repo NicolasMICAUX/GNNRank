@@ -141,7 +141,9 @@ result_arrays/debug/
 /data/**/*.csv
 /data/**/*.feather
 /data/**/*.pk
+/data/**/*.pickle
 /data/**/*.npz
+/data/**/*.npy
 
 # profiling files
 /**/*.pclprof
