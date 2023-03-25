@@ -317,26 +317,26 @@ def serialRank_matrix(A):
 
 
 def btl(A, tol=1e-3):
-    # g = btl(A,tol)
-    #   INPUTS:
-    # A is a NxN matrix representing a directed network
-    #   A can be weighted (integer or non-integer)
-    #   A(i,j) = # of dominance interactions by i toward j. 
-    #   A(i,j) = # of times that j endorsed i.
-    # tol is the accuracy tolerance desired for successive iterations
-    #   OUTPUTS:
-    # s is the Nx1 vector of Davids Score
-    #   Note: implementation of a regularized version (for dangling node)
-    #   version of the algorithm presented in 
-    # Hunter DR (2004) MM algorithms for generalized Bradley-Terry models. 
-    # Annals of Statistics pp. 384?406
-
+    """
+    Usage: g = btl(A,tol)
+    :param A: A is a NxN matrix representing a directed network
+       A can be weighted (integer or non-integer)
+       A(i,j) = # of dominance interactions by i toward j.
+       A(i,j) = # of times that j endorsed i.
+    :param tol is the accuracy tolerance desired for successive iterations
+    OUTPUTS:
+     s is the Nx1 vector of Davids Score
+       Note: implementation of a regularized version (for dangling node)
+       version of the algorithm presented in
+    Hunter DR (2004) MM algorithms for generalized Bradley-Terry models.
+    Annals of Statistics pp. 384?406
+    """
     A = sp.lil_matrix(A)
     A.setdiag(0)
     A = sp.csr_matrix(A)
     A.eliminate_zeros()
     N = A.shape[0]
-    g = np.random.uniform(size=N)  # random initial guesss
+    g = np.random.uniform(size=N)  # random initial guess
     wins = np.array(A.sum(1)).flatten()
     matches = A + A.transpose()
     totalMatches = np.array(matches.sum(0)).flatten()
