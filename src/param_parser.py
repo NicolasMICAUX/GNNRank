@@ -72,7 +72,7 @@ def parameter_parser():
                         help='Number of hops to consider for the random walk.')
     parser.add_argument('--tau', type=float, default=0.5,
                         help='The regularization parameter when adding self-loops to an adjacency matrix, i.e. A -> A + tau * I, where I is the identity matrix.')
-    parser.add_argument('--num_trials', type=int, default=2,
+    parser.add_argument('--num_trials', type=int, default=1,
                         help='Number of trials to generate results.')
     parser.add_argument('--ERO_style', type=str, default='uniform',
                         help='ERO rating style, uniform or gamma.')
