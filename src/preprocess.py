@@ -7,8 +7,6 @@ import numpy as np
 import numpy.random as rnd
 import scipy.sparse as sp
 
-from numpy import ndarray
-
 from extract_network import extract_network
 from generate_data import to_dataset_no_split
 

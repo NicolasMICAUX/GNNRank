@@ -265,7 +265,7 @@ class Trainer(object):
                     train_index = np.ones(args.N, dtype=bool)
                     val_index = train_index
                     test_index = train_index
-                    train_A = scipy_sparse_to_torch_sparse(self.A).to(self.args.device)
+                    # train_A = scipy_sparse_to_torch_sparse(self.A).to(self.args.device)
                     # val_A = train_A
                     # test_A = train_A
                 #################################
