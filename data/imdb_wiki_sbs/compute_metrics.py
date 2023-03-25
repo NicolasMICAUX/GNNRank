@@ -20,5 +20,5 @@ upset_naive = calculate_upsets(A, score, style='naive')
 print('upset_simple', upset_simple.item())
 print('upset_naive', upset_naive.item())
 
-# upset_simple 1.9727520942687988
-# upset_naive 0.4931880235671997
+# upset_simple 0.9663375020027161
+# upset_naive 0.2541268765926361
