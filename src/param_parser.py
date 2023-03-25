@@ -152,6 +152,7 @@ def parameter_parser():
         args.all_methods = ['SpringRank', 'syncRank', 'serialRank', 'btl', 'davidScore',
                             'eigenvectorCentrality', 'PageRank', 'rankCentrality', 'mvr', 'SVD_RS', 'SVD_NRS', 'DIGRAC',
                             'ib']
+        # todo : MVR TAKING SOOOO MUCH TIME
     elif args.all_methods == ['all_GNNs']:
         args.all_methods = ['DIGRAC', 'ib']
     elif args.all_methods == ['baselines_shorter']:
