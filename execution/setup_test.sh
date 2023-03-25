@@ -1,6 +1,6 @@
 cd ../src
 
-python ./train.py -D --p 1 --ERO_style gamma --N 400 --all_methods SpringRank -All
+python ./train.py -D --p 1 --ERO_style gamma --N 400 --all_methods all_methods_shorter -All
 
 python ./train.py -D --dataset football --season 2011 --all_methods serialRank
 

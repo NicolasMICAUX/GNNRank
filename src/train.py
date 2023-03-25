@@ -152,7 +152,7 @@ class Trainer(object):
             kendalltau_full, upset_full = self.non_nn(model_name)
             kendalltau_full_latest = kendalltau_full.copy()
             upset_full_latest = upset_full.copy()
-        else:
+        else:  # GNN models
             if self.args.upset_ratio_coeff + self.args.upset_margin_coeff == 0:
                 raise ValueError('Incorrect loss combination!')
             # (the last two dimensions) rows: test, val, all; cols: kendall tau, kendall p value
